@@ -12,6 +12,7 @@ class MainController < ApplicationController
     @prices = Price.where(site: @site, date: @date, sport: @sport).includes(:projection)
     @max_salary = Price.where(site: @site, sport: @sport).maximum(:salary).to_f
     @max_fpts = Projection.where(site: @site, sport: @sport.downcase).maximum(:fpts)
+    @lines = Line.where(date: @date.to_time, sport: @sport)
     
     respond_to do |format|
 
@@ -20,7 +21,7 @@ class MainController < ApplicationController
            workbook = RubyXL::Workbook.new 
            worksheet = workbook['Sheet1'] 
            worksheet.sheet_name = 'Prices' 
-          
+           
            worksheet.add_cell(0, 0, 'Pos')  
            worksheet.add_cell(0, 1, 'Team')  
            worksheet.add_cell(0, 2, 'Site ID')  
@@ -48,8 +49,26 @@ class MainController < ApplicationController
                row = row + 1 
              end 
             
-           workbook.write("C:\\Users\\Craig\\Desktop\\test.xlsx") 
-          
+            
+           linesheet = workbook.add_worksheet('Lines')
+           linesheet.add_cell(0, 0, 'Team1')  
+           linesheet.add_cell(0, 1, 'Team2')  
+           linesheet.add_cell(0, 2, 'O/U')  
+           linesheet.add_cell(0, 3, 'Team1 Line')  
+           linesheet.add_cell(0, 4, 'Team2 Line')  
+           linesheet.add_cell(0, 5, 'Linetype')  
+           row = 1 
+
+           @lines.each do |line|
+             linesheet.add_cell(row, 0, line.team1)  
+             linesheet.add_cell(row, 1, line.team2)  
+             linesheet.add_cell(row, 2, line.over_under)  
+             linesheet.add_cell(row, 3, line.team1_line)
+             linesheet.add_cell(row, 4, line.team2_line)
+             linesheet.add_cell(row, 5, line.linetype) 
+             row = row + 1
+           end           
+           
            send_data(workbook.stream.read)
           
           }

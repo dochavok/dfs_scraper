@@ -83,7 +83,7 @@ namespace :import do
   task :draft_kings => :environment do
     
   end
-  task :all => [:fanduel, :fantasyaces, :draftkings]
+  task :all => [:fanduel, :fantasy_aces, :draft_kings]
   task :faclear => :environment do
     Price.where(site: "fantasy_aces").destroy_all
   end
