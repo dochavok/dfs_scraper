@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @line.date %>
+</p>
+
+<p>
+  <strong>Team1:</strong>
+  <%= @line.team1 %>
+</p>
+
+<p>
+  <strong>Team2:</strong>
+  <%= @line.team2 %>
+</p>
+
+<p>
+  <strong>Over under:</strong>
+  <%= @line.over_under %>
+</p>
+
+<p>
+  <strong>Team1 line:</strong>
+  <%= @line.team1_line %>
+</p>
+
+<p>
+  <strong>Team2 line:</strong>
+  <%= @line.team2_line %>
+</p>
+
+<p>
+  <strong>Sport:</strong>
+  <%= @line.sport %>
+</p>
+
+<p>
+  <strong>Linetype:</strong>
+  <%= @line.linetype %>
+</p>
+
+<%= link_to 'Edit', edit_line_path(@line) %> |
+<%= link_to 'Back', lines_path %>

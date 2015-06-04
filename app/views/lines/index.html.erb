@@ -1,0 +1,39 @@
+<h1>Listing lines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Team1</th>
+      <th>Team2</th>
+      <th>Over under</th>
+      <th>Team1 line</th>
+      <th>Team2 line</th>
+      <th>Sport</th>
+      <th>Linetype</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lines.each do |line| %>
+      <tr>
+        <td><%= line.date %></td>
+        <td><%= line.team1 %></td>
+        <td><%= line.team2 %></td>
+        <td><%= line.over_under %></td>
+        <td><%= line.team1_line %></td>
+        <td><%= line.team2_line %></td>
+        <td><%= line.sport %></td>
+        <td><%= line.linetype %></td>
+        <td><%= link_to 'Show', line %></td>
+        <td><%= link_to 'Edit', edit_line_path(line) %></td>
+        <td><%= link_to 'Destroy', line, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Line', new_line_path %>

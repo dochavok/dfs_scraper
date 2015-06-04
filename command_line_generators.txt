@@ -1,0 +1,5 @@
+rails generate scaffold price sport:string date:text position:string team:string player:string salary:integer site:string site_id:integer salary_cap:integer format:string
+
+rails generate scaffold line date:datetime team1:string team2:string over_under:decimal team1_line:decimal team2_line:decimal sport:string linetype:string
+
+rails generate scaffold projection date:datetime player:string fpts:decimal team:string opponent:string position:string cost:integer source:string site:string

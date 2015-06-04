@@ -1,0 +1,43 @@
+<h1>Listing projections</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Player</th>
+      <th>Fpts</th>
+      <th>Team</th>
+      <th>Opponent</th>
+      <th>Position</th>
+      <th>Cost</th>
+      <th>Source</th>
+      <th>Site</th>
+      <th>Sport</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projections.each do |projection| %>
+      <tr>
+        <td><%= projection.date %></td>
+        <td><%= projection.player %></td>
+        <td><%= projection.fpts %></td>
+        <td><%= projection.team %></td>
+        <td><%= projection.opponent %></td>
+        <td><%= projection.position %></td>
+        <td><%= projection.cost %></td>
+        <td><%= projection.source %></td>
+        <td><%= projection.site %></td>
+        <td><%= projection.sport %></td>
+        <td><%= link_to 'Show', projection %></td>
+        <td><%= link_to 'Edit', edit_projection_path(projection) %></td>
+        <td><%= link_to 'Destroy', projection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Projection', new_projection_path %>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DFS Scraper</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= link_to "Home", root_path %>
+<%= link_to "Projections", projections_path %>
+<%= link_to "Lines", lines_path %>
+<%= link_to "Prices", prices_path %>
+<% ss_date = Price.select(:date).distinct.first.date %>
+<% sheets = Price.select(:sport, :date, :site).distinct([:date, :sport, :site]) %>
+<table>
+	<tr>
+		<th>Previous</th>
+		<th>Today</th>
+		<th>Future</th>
+	</tr>
+<% today_html = previous_html = future_html = "" %>
+<% sheets.each do |price| %>
+  <% link = link_to "Spreadsheet (#{price.site}/#{price.sport}/#{price.date})", {controller: "main", action: "spreadsheet", site: price.site, sport: price.sport, date: price.date} %>
+  <% case  %>
+  	<% when price.date.to_date < Date.today %>
+  		<% previous_html = previous_html + link + "<br />" %>
+  	<% when price.date.to_date == Date.today %>
+  		<% today_html = today_html + link + "<br />" %>
+  	<% when price.date.to_date	 > Date.today %>
+  		<% future_html = future_html + link + "<br />" %>
+  <% end %>
+<% end %>
+<tr>
+	<td valign="top"><%= previous_html.html_safe %></td>
+	<td valign="top"><%= today_html.html_safe %></td>
+	<td valign="top"><%= future_html.html_safe %></td>
+</tr>
+</table>
+<%= yield %>
+
+</body>
+</html>
